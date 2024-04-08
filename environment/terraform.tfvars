@@ -1,5 +1,5 @@
 aws_region          = "us-east-1"
-environment_name     = "eks-karpenter"
+environment_name     = "eks-lab-karpenter"
 
 eks_admin_role_name = "workshopadmin"
 

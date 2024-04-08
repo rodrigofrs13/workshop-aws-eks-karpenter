@@ -71,11 +71,11 @@ module "eks" {
   eks_managed_node_groups = {
     initial = {
       node_group_name = local.node_group_name
-      instance_types  = ["m5.large"]
+      instance_types  = ["t3a.medium"]
 
-      min_size     = 1
+      min_size     = 2
       max_size     = 10
-      desired_size = 5
+      desired_size = 3
       subnet_ids   = data.aws_subnets.private.ids
     }
   }
@@ -148,7 +148,7 @@ module "eks_blueprints_platform_teams" {
           "requests.memory" = "20Gi",
           "limits.cpu"      = "20000m",
           "limits.memory"   = "50Gi",
-          "pods"            = "20",
+          "pods"            = "500",
           "secrets"         = "20",
           "services"        = "20"
         }
@@ -230,11 +230,11 @@ module "eks_blueprints_dev_teams" {
 
       resource_quota = {
         hard = {
-          "requests.cpu"    = "100",
+          "requests.cpu"    = "500",
           "requests.memory" = "20Gi",
-          "limits.cpu"      = "200",
-          "limits.memory"   = "50Gi",
-          "pods"            = "15",
+          "limits.cpu"      = "1000",
+          "limits.memory"   = "100Gi",
+          "pods"            = "500",
           "secrets"         = "10",
           "services"        = "20"
         }
@@ -323,11 +323,11 @@ module "kubernetes_addons" {
   #---------------------------------------------------------------
 
 
-  enable_aws_load_balancer_controller  = true
-  enable_aws_for_fluentbit             = true
-  enable_metrics_server                = true
-  enable_argo_rollouts                 = true # <-- Add this line
-  enable_karpenter                     = true                                       # <-- Add this line 
+  enable_aws_load_balancer_controller        = true
+  enable_aws_for_fluentbit                   = true
+  enable_metrics_server                      = true
+  enable_argo_rollouts                       = true # <-- Add this line
+  enable_karpenter                           = true                                       # <-- Add this line 
   karpenter_node_iam_instance_profile        = module.karpenter.instance_profile_name # <-- Add this line 
   karpenter_enable_spot_termination_handling = true                                 # <-- Add this line 
 
